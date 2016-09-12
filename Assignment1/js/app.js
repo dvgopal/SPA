@@ -40,7 +40,7 @@ function LunchCheckController($scope) {
         } else if(count == 0){
           msg = "Please enter Proper Data";
         }
-      
+
     } else {
 
       msg= "Please enter the Data";
