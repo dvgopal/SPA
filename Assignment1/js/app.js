@@ -35,15 +35,23 @@ function LunchCheckController($scope) {
 
         if(count >0 && count <=3 ){
           msg = "Enjoy!";
+          $scope.colorStyle={"color":"green"};
+          $scope.borderColorStyle = {"border-color":"green"};
         } else if(count > 3){
           msg = "Too Much!";
+          $scope.colorStyle={"color":"green"};
+          $scope.borderColorStyle = {"border-color":"green"};
         } else if(count == 0){
           msg = "Please enter Proper Data";
+          $scope.colorStyle={"color":"red"};
+          $scope.borderColorStyle = {"border-color":"red"};
         }
 
     } else {
 
       msg= "Please enter the Data";
+      $scope.colorStyle = {"color":"red"};
+      $scope.borderColorStyle = {"border-color":"red"};
     }
     return msg;
   };
