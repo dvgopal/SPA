@@ -25,17 +25,25 @@ function LunchCheckController($scope) {
     if( (typeof(str) !== "undefined")  && (String.prototype.trim.call(str).length > 0 ))
     {
         var arr = str.split(',');
-        if(arr[arr.length -1] === ""){
-          arr.pop();
+        var count = 0;
+        for(var a in arr){
+          if(String.prototype.trim.call(arr[a]).length>0){
+            count++;
+          }
         }
-        console.log(arr.length);
-        if(arr.length <=3 ){
+        console.log("count is:" + count);
+
+        if(count >0 && count <=3 ){
           msg = "Enjoy!";
-        } else if (arr.length >3){
+        } else if(count > 3){
           msg = "Too Much!";
+        } else if(count == 0){
+          msg = "Please enter Proper Data";
         }
+      
     } else {
-      return "Please enter the Data";
+
+      msg= "Please enter the Data";
     }
     return msg;
   };
