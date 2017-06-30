@@ -1,9 +1,11 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" ng-app='ShoppingListCheckOff'>
   <head>
     <title>Shopping List Check Off</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="styles/bootstrap.min.css">
+    <script src="js/angular.js"></script>
+    <script src="js/app.js"></script>
     <style>
       .emptyMessage {
         font-weight: bold;
@@ -22,29 +24,29 @@
       }
     </style>
   </head>
-<body>
+<body  >
   <div class="container">
   <h1>Shopping List Check Off</h1>
 
   <div class="row">
 
     <!-- To Buy List -->
-    <div class="col-md-6">
+    <div class="col-md-6" ng-controller="BuyController as ToBuyController ">
      <h2>To Buy:</h2>
      <ul>
-       <li>Buy 10 cookies <button class="btn btn-default"><span class="glyphicon glyphicon-ok"></span> Bought</button></li>
-       <li>Buy 10 cookies <button class="btn btn-default"><span class="glyphicon glyphicon-ok"></span> Bought</button></li>
+       <li ng-repeat='item in ToBuyController.Items'>Buy {{item.quantity}} of  {{item.name}}
+         <button class="btn btn-default" ng-click="ToBuyController.removeItem($index);"><span class="glyphicon glyphicon-ok"></span> Bought</button></li>
      </ul>
-     <div class="emptyMessage">Everything is bought!</div>
+     <div class="emptyMessage" ng-hide="ToBuyController.Items.length > 0">Everything is bought!</div>
     </div>
 
     <!-- Already Bought List -->
-    <div class="col-md-6">
+    <div class="col-md-6" ng-controller='BoughtController as itemsAddr'>
      <h2>Already Bought:</h2>
      <ul>
-       <li>Bought 10 cookies</li>
+       <li ng-repeat="item in itemsAddr.items">Bought {{item.quantity}}  {{item.name}} </li>
      </ul>
-     <div class="emptyMessage">Nothing bought yet.</div>
+     <div class="emptyMessage" ng-hide="itemsAddr.items.length">Nothing bought yet.</div>
     </div>
   </div>
 </div>

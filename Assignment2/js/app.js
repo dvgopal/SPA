@@ -2,98 +2,79 @@
 'use strict';
 
 angular.module('ShoppingListCheckOff', [])
-.controller('BuyController', ToBuyController)
-.controller('BoughtController', AlreadyBoughtController)
-.factory('ShoppingListFactory', ShoppingListFactory);
+.controller('BuyController', BuyController)
+.controller('BoughtController', BoughtController)
+.service('ShoppingList', ShoppingListCheckOffService);
 
 // LIST #1 - controller
-ToBuyController.$inject = ['ShoppingListFactory'];
-function ToBuyController(ShoppingListFactory) {
-  var list1 = this;
+BuyController.$inject = ['ShoppingList'];
+function BuyController(ShoppingList) {
+  var ToBuyController = this;
+ShoppingList.addToBuyItem("Books","10");
+ShoppingList.addToBuyItem("pens","10");
+ShoppingList.addToBuyItem("erasers","5");
+ShoppingList.addToBuyItem("sketches","4");
+ShoppingList.addToBuyItem("ruler","1");
+ShoppingList.addToBuyItem("pencils","13");
+  ToBuyController.Items = ShoppingList.getToBuyItems();
 
-  // Use factory to create new shopping list service
-  var shoppingList = ShoppingListFactory();
-
-  list1.items = shoppingList.getItems();
-
-  list1.itemName = "";
-  list1.itemQuantity = "";
-
-  list1.addItem = function () {
-    shoppingList.addItem(list1.itemName, list1.itemQuantity);
-  }
-
-  list1.removeItem = function (itemIndex) {
-    shoppingList.removeItem(itemIndex);
+  ToBuyController.removeItem = function (itemIndex) {
+    console.log(itemIndex);
+    ShoppingList.removeItem(itemIndex);
   };
+
 }
 
 
 // LIST #2 - controller
-AlreadyBoughtController.$inject = ['ShoppingListFactory'];
-function ShoppingListController2(ShoppingListFactory) {
-  var list2 = this;
-
-  // Use factory to create new shopping list service
-  var shoppingList = ShoppingListFactory(3);
-
-  list2.items = shoppingList.getItems();
-
-  list2.itemName = "";
-  list2.itemQuantity = "";
-
-  list2.addItem = function () {
-    try {
-      shoppingList.addItem(list2.itemName, list2.itemQuantity);
-    } catch (error) {
-      list2.errorMessage = error.message;
-    }
-
-  }
-
-  list2.removeItem = function (itemIndex) {
-    shoppingList.removeItem(itemIndex);
-  };
+BoughtController.$inject = ['ShoppingList'];
+function BoughtController(ShoppingList) {
+  var itemsAddr = this;
+  itemsAddr.items = ShoppingList.getAlreadyBoughtItems();
 }
 
 
 // If not specified, maxItems assumed unlimited
-function ShoppingListCheckOffService(maxItems) {
+function ShoppingListCheckOffService() {
   var service = this;
 
   // List of shopping items
-  var items = [];
+  var alreadyBoughtItems = [];
+  var toBuyItems = [];
 
-  service.addItem = function (itemName, quantity) {
-    if ((maxItems === undefined) ||
-        (maxItems !== undefined) && (items.length < maxItems)) {
+  service.addToBuyItem = function(itemName, quantity) {
+      var item = {
+        name:itemName,
+        quantity:quantity
+      }
+      toBuyItems.push(item);
+      console.log(item);
+  };
+
+  service.addAlreadyBoughtItem = function (itemName, quantity) {
       var item = {
         name: itemName,
         quantity: quantity
       };
-      items.push(item);
-    }
-    else {
-      throw new Error("Max items (" + maxItems + ") reached.");
-    }
+      alreadyBoughtItems.push(item);
+      console.log(item);
   };
 
   service.removeItem = function (itemIndex) {
-    items.splice(itemIndex, 1);
+    var item = toBuyItems[itemIndex];
+    console.log(item);
+    service.addAlreadyBoughtItem(item.name,item.quantity);
+    toBuyItems.splice(itemIndex, 1);
   };
 
-  service.getItems = function () {
-    return items;
-  };
-}
-
-
-function ShoppingListFactory() {
-  var factory = function (maxItems) {
-    return new ShoppingListCheckOffService(maxItems);
+  service.getToBuyItems = function () {
+    return toBuyItems;
   };
 
-  return factory;
+  service.getAlreadyBoughtItems = function () {
+    return alreadyBoughtItems;
+  };
+
 }
 
 })();
