@@ -87,7 +87,7 @@ function MenuSearchService($http, ApiBasePath) {
       service.foundItems.splice(0,service.foundItems.length);
       if(shortName.length > 0){
         for (var i = 0; i < items.length; i++) {
-          var name = items[i].name;
+          var name = items[i].description;
           if (name.toLowerCase().indexOf(shortName) !== -1) {
             service.foundItems.push(items[i]);
           }
