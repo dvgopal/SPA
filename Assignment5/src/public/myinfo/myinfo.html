@@ -1,0 +1,16 @@
+
+<div class="container" ng-hide='!myInfoCtrl.isSigned()'>
+ <h2> Signed Up Information : <h2>
+ <p> First  Name: {{myInfoCtrl.getFirstName()}} <p>
+ <p> Last Name: {{myInfoCtrl.getLastName()}} <p>
+ <p> Email : {{myInfoCtrl.getEmail()}} <p>
+ <p> Phone: {{myInfoCtrl.getPhone()}} <p>
+ <p> Favorite Item: {{myInfoCtrl.getFavItem()}}
+   <img class="img-responsive" width="250" height="150" ng-src="{{myInfoCtrl.basePath}}/images/{{myInfoCtrl.getFavItem()}}.jpg" alt="{{myInfoCtrl.getFavItem()}}">
+ </p>
+</div>
+
+<div class="container" ng-hide='myInfoCtrl.isSigned()'>
+ <h2> Please sign up  <a ui-sref="public.signup">here  <h2>
+
+</div>
