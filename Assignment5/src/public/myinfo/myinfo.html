@@ -7,6 +7,8 @@
  <p> Phone: {{myInfoCtrl.getPhone()}} <p>
  <p> Favorite Item: {{myInfoCtrl.getFavItem()}}
    <img class="img-responsive" width="250" height="150" ng-src="{{myInfoCtrl.basePath}}/images/{{myInfoCtrl.getFavItem()}}.jpg" alt="{{myInfoCtrl.getFavItem()}}">
+   title: {{myInfoCtrl.getFavItemDetails().name}} <br>
+   description: {{myInfoCtrl.getFavItemDetails().description}}
  </p>
 </div>
 

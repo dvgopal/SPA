@@ -34,7 +34,7 @@ function SignupController(isSignedUp,SignupService,MenuService) {
          promise.then(function (response) {
            console.log(response);
            if(response != undefined){
-             SignupService.signup($ctrl.firstname,$ctrl.lastname,$ctrl.email,$ctrl.phone,$ctrl.favitem);
+             SignupService.signup($ctrl.firstname,$ctrl.lastname,$ctrl.email,$ctrl.phone,$ctrl.favitem,response);
            } else {
              $ctrl.invalid = true;
            }

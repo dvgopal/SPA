@@ -36,6 +36,9 @@ function MyInfoController(ApiPath,isSignedUp,SignupService,MenuService) {
    $ctrl.getFavItem = function(){
      return SignupService.favItem;
    }
+   $ctrl.getFavItemDetails = function(){
+     return SignupService.category;
+   }
 }
 
 })();
