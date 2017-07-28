@@ -47,13 +47,14 @@
             ng-if="(regForm.favitem.$error.minlength || regForm.favitem.$error.required) && regForm.favitem.$touched">
             Favorite Item must be at least 2 characters long
           </span>
+          <span style="margin-top: 10px;" ng-hide='!signupCtrl.valid()'>
+              Please enter the valid Menu Item 
+          </span>
           <br>
 <!-- ng-disabled="!signupCtrl.valid()" -->
         <button  class="btn btn-primary" ng-click="signupCtrl.saveDetails()" ng-disabled="regForm.$invalid" > Submit</button>
 
-          <div style="margin-top: 10px;" ng-hide='!signupCtrl.valid()'>
-             <p1> Please enter the valid Menu Item </p>
-          </div>
+
       </form>
     </fieldset>
 
